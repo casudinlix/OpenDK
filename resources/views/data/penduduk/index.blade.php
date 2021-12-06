@@ -3,15 +3,15 @@
 @section('title') Data Profil @endsection
 
 @section('content')
-        <!-- Content Header (Page header) -->
+<!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>
         {{ $page_title ?? "Page Title" }}
         <small>{{ $page_description ?? '' }}</small>
     </h1>
     <ol class="breadcrumb">
-        <li><a href="{{route('dashboard.profil')}}"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-        <li class="active">{{$page_title}}</li>
+        <li><a href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+        <li class="active">{{ $page_title }}</li>
     </ol>
 </section>
 
@@ -25,9 +25,6 @@
                     <div class="box-header with-border">
                         <div class="float-right">
                             <div class="btn-group">
-                                <a href="{{ route('data.penduduk.create') }}">
-                                    <button type="button" class="btn btn-primary btn-sm" title="Tambah Data"><i class="fa fa-plus"></i> Tambah Penduduk</button>
-                                </a>
                                 <a href="{{ route('data.penduduk.import') }}">
                                     <button type="button" class="btn btn-warning btn-sm" title="Unggah Data"><i class="fa fa-upload"></i> Impor</button>
                                 </a>
@@ -41,9 +38,9 @@
                                 <div class="form-group">
                                     <label>Desa</label>
                                         <select class="form-control" id="list_desa">
-                                            <option value="ALL">ALL</option>
+                                            <option value="Semua">Semua Desa</option>
                                             @foreach($list_desa as $desa)
-                                                <option value="{{$desa->desa_id}}">{{$desa->nama}}</option>
+                                                <option value="{{ $desa->desa_id}}">{{$desa->nama}}</option>
                                             @endforeach
                                         </select>
                                 </div>
@@ -100,7 +97,7 @@
                 }
             },
             columns: [
-                {data: 'action', name: 'action', class: 'text-center', searchable: false, orderable: false},
+                {data: 'aksi', name: 'aksi', class: 'text-center', searchable: false, orderable: false},
                 {data: 'foto', name: 'foto',
                 "searchable": false,
                 "orderable":false,
@@ -123,7 +120,7 @@
                 {data: 'pekerjaan', name: 'ref_pekerjaan.nama'},
                 {data: 'status_kawin', name: 'ref_kawin.nama'},
             ],
-            order: [[0, 'desc']]
+            order: [[3, 'asc']]
         });
 
         $('#list_desa').on('select2:select', function (e) {
