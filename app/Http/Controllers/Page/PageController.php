@@ -7,7 +7,7 @@
  *
  * Aplikasi dan source code ini dirilis berdasarkan lisensi GPL V3
  *
- * Hak Cipta 2017 - 2021 Perkumpulan Desa Digital Terbuka (https://opendesa.id)
+ * Hak Cipta 2017 - 2022 Perkumpulan Desa Digital Terbuka (https://opendesa.id)
  *
  * Dengan ini diberikan izin, secara gratis, kepada siapa pun yang mendapatkan salinan
  * dari perangkat lunak ini dan file dokumentasi terkait ("Aplikasi Ini"), untuk diperlakukan
@@ -24,7 +24,7 @@
  *
  * @package	    OpenDK
  * @author	    Tim Pengembang OpenDesa
- * @copyright	Hak Cipta 2017 - 2021 Perkumpulan Desa Digital Terbuka (https://opendesa.id)
+ * @copyright	Hak Cipta 2017 - 2022 Perkumpulan Desa Digital Terbuka (https://opendesa.id)
  * @license    	http://www.gnu.org/licenses/gpl.html    GPL V3
  * @link	    https://github.com/OpenSID/opendk
  */
@@ -158,9 +158,12 @@ class PageController extends Controller
 
     public function detailBerita($slug)
     {
-        return view('pages.berita.detail', [
-            'artikel' => Artikel::where('slug', $slug)->status()->firstOrFail()
-        ]);
+        $artikel = Artikel::where('slug', $slug)->status()->firstOrFail();
+        $page_title       = $artikel->judul;
+        $page_description = substr($artikel->isi, 0, 300) . ' ...';
+        $page_image = $artikel->gambar;
+
+        return view('pages.berita.detail', compact('page_title', 'page_description', 'page_image', 'artikel'));
     }
 
     public function eventDetail($slug)
